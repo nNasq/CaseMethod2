@@ -1,3 +1,8 @@
+//Hafizh Arrasyiid Syahbana
+//254107060026
+//SIB 1A
+//https://github.com/nNasq/CaseMethod2/blob/main/src/CM2Magang10.java
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -59,7 +64,7 @@ public class CM2Magang10 {
 
         int semester;
         while (true) {
-            System.out.println("Semester Pengambilan Magang (6 atau 7): ");
+            System.out.print("Semester Pengambilan Magang (6 atau 7): ");
             semester = sc.nextInt();
             sc.nextLine();
             if (semester == 6 || semester == 7)
@@ -70,7 +75,7 @@ public class CM2Magang10 {
 
         String status;
         while (true) {
-            System.out.println("Status Magang (Diterima/Menunggu/Ditolak): ");
+            System.out.print("Status Magang (Diterima/Menunggu/Ditolak): ");
             status = sc.nextLine();
             if (status.equalsIgnoreCase("Diterima") || status.equalsIgnoreCase("Menunggu")
                     || status.equalsIgnoreCase("Ditolak"))
@@ -90,7 +95,7 @@ public class CM2Magang10 {
             return;
         }
 
-        System.out.println("\nNo  Nama\t   NIM\t      Prodi\t\tPerusahaan\tSemester\tStatus");
+        System.out.println("\nNo  Nama\tNIM\tProdi\t\tPerusahaan\tSemester\tStatus");
         int no = 1;
         for (PendaftarMagang m : data) {
             System.out.printf("%d   %-10s %-10s %-15s %-15s %-8d %-10s\n",
@@ -100,11 +105,11 @@ public class CM2Magang10 {
     }
 
     static void cariBerdasarkanProdi() {
-        System.out.println("Masukkan Program Studi yang dicari: ");
+        System.out.print("Masukkan Program Studi yang dicari: ");
         String cariProdi = sc.nextLine();
         boolean ditemukan = false;
 
-        System.out.println("\nNo  Nama\t   NIM\t      Prodi\t\tPerusahaan\tSemester\tStatus");
+        System.out.println("\nNo  Nama\tNIM\tProdi\t\tPerusahaan\tSemester\tStatus");
         int no = 1;
         for (PendaftarMagang m : data) {
             if (m.prodi.equalsIgnoreCase(cariProdi)) {
