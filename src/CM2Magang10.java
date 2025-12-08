@@ -19,6 +19,7 @@ public class CM2Magang10 {
             this.status = status;
         }
     }
+
     public static void main(String[] args) {
         while (true) {
             System.out.println("\n=== Sistem Pendaftaran Magang Mahasiswa ===");
@@ -47,13 +48,13 @@ public class CM2Magang10 {
     }
 
     static void tambahData() {
-        System.out.println("Nama Mahasiswa: ");
+        System.out.print("Nama Mahasiswa: ");
         String nama = sc.nextLine();
-        System.out.println("NIM: ");
+        System.out.print("NIM: ");
         String nim = sc.nextLine();
-        System.out.println("Program Studi: ");
+        System.out.print("Program Studi: ");
         String prodi = sc.nextLine();
-        System.out.println("Perusahaan Tujuan Magang: ");
+        System.out.print("Perusahaan Tujuan Magang: ");
         String perusahaan = sc.nextLine();
 
         int semester;
@@ -78,10 +79,13 @@ public class CM2Magang10 {
                 System.out.println("Status harus Diterima, Menunggu, atau Ditolak.");
         }
         System.out.println();
+
+        data.add(new PendaftarMagang(nama, nim, prodi, perusahaan, semester, status));
+        System.out.println("Data pendaftaran magang berhasil ditambahkan. Total pendaftar: " + data.size());
     }
 
     static void tampilkanSemua() {
-        if(data.isEmpty()){
+        if (data.isEmpty()) {
             System.out.println("Belum ada data pendaftar magang.");
             return;
         }
