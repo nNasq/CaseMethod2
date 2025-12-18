@@ -9,34 +9,41 @@ public class CM2Magang10_Array2D {
     static Scanner sc = new Scanner(System.in);
 
     // Maksimal 100 pendaftar
-    static String[][] data = new String[100][7]; 
+    static String[][] data = new String[100][6];
     // index kolom:
-    // 0=nama, 1=nim, 2=prodi, 3=perusahaan, 4=semester, 5=status, 6=angkatan
+    // 0=nama, 1=nim, 2=prodi, 3=perusahaan, 4=semester, 5=status
 
     // jumlah data tersimpan
     static int count = 0;
 
     public static void main(String[] args) {
-        while (true) {
+        int menu;
+
+        do {
             System.out.println("\n=== Sistem Pendaftaran Magang Mahasiswa ===");
             System.out.println("1. Tambah Data Magang");
             System.out.println("2. Tampilkan Semua Pendaftar Magang");
             System.out.println("3. Cari Pendaftar berdasarkan Program Studi");
-            System.out.println("4. Hitung Jumlah Pendaftar untuk Setiap Status");
-            System.out.println("5. Keluar");
-            System.out.print("Pilih menu (1-5): ");
-            int menu = sc.nextInt();
+            System.out.println("4. Cari Pendaftar berdasarkan Perusahaan Magang");
+            System.out.println("5. Hitung Jumlah Pendaftar untuk Setiap Status");
+            // System.out.println("5. Hitung Total Pendaftar per Program Studi");
+            System.out.println("6. Keluar");
+            System.out.print("Pilih menu (1-6): ");
+            menu = sc.nextInt();
             sc.nextLine();
 
             switch (menu) {
                 case 1 -> tambahData();
                 case 2 -> tampilkanSemua();
                 case 3 -> cariBerdasarkanProdi();
-                case 4 -> hitungStatus();
-                case 5 -> { return; }
+                case 4 -> cariBerdasarkanMagang();
+                case 5 -> hitungStatus();
+                // case 5 -> hitungTotalPerProdi();
+                case 6 -> System.out.println("Terima kasih telah menggunakan sistem.");
                 default -> System.out.println("Pilihan tidak valid!");
             }
-        }
+        } while (menu != 5);
+
     }
 
     // 1. Tambah Data ke dalam Array
@@ -54,8 +61,6 @@ public class CM2Magang10_Array2D {
         String prodi = sc.nextLine();
         System.out.print("Perusahaan Tujuan Magang: ");
         String perusahaan = sc.nextLine();
-        System.out.print("Angkatan Berapa? ");
-        String angkatan = sc.nextLine();
 
         // Validasi semester
         String semester;
@@ -73,8 +78,8 @@ public class CM2Magang10_Array2D {
             System.out.print("Status Magang (Diterima/Menunggu/Ditolak): ");
             status = sc.nextLine();
             if (status.equalsIgnoreCase("Diterima") ||
-                status.equalsIgnoreCase("Menunggu") ||
-                status.equalsIgnoreCase("Ditolak"))
+                    status.equalsIgnoreCase("Menunggu") ||
+                    status.equalsIgnoreCase("Ditolak"))
                 break;
             System.out.println("Status harus Diterima, Menunggu, atau Ditolak.");
         }
@@ -86,11 +91,11 @@ public class CM2Magang10_Array2D {
         data[count][3] = perusahaan;
         data[count][4] = semester;
         data[count][5] = status;
-        data[count][6] = angkatan;
 
         count++;
 
         System.out.println("Data pendaftaran magang berhasil ditambahkan. Total pendaftar: " + count);
+        System.out.println("Data berhasil disimpan! dengan NIM : " + nim);
     }
 
     // 2. Tampilkan Semua Data
@@ -100,12 +105,12 @@ public class CM2Magang10_Array2D {
             return;
         }
 
-        System.out.println("\nNo  Nama\tNIM\tProdi\t\tPerusahaan\tSemester\tStatus\tAngkatan");
+        System.out.println("\nNo  Nama\tNIM\tProdi\t\tPerusahaan\tSemester\tStatus");
 
         for (int i = 0; i < count; i++) {
             System.out.printf("%d   %-10s %-10s %-15s %-15s %-8s %-10s %-10s\n",
                     i + 1, data[i][0], data[i][1], data[i][2], data[i][3],
-                    data[i][4], data[i][5], data[i][6]);
+                    data[i][4], data[i][5]);
         }
     }
 
@@ -134,6 +139,34 @@ public class CM2Magang10_Array2D {
         }
     }
 
+    static void cariBerdasarkanMagang() {
+        System.out.print("Masukkan perusahaan tujuan magang yang dicari: ");
+        String cariMagang = sc.nextLine();
+
+        boolean ditemukan = false;
+        int total = 0;
+
+        System.out.println("\nNo  Nama\tNIM\tProdi\t\tSemester\tStatus");
+
+        int no = 1;
+        for (int i = 0; i < count; i++) {
+            if (data[i][3].equalsIgnoreCase(cariMagang)) {
+                System.out.printf("%d   %-10s %-10s %-15s %-8s %-10s\n",
+                        no, data[i][0], data[i][1], data[i][2],
+                        data[i][4], data[i][5]);
+                ditemukan = true;
+                total++;
+                no++;
+            }
+        }
+
+        if (!ditemukan) {
+            System.out.println("Tidak ada pendaftar magang dari perusahaan tujuan magang " + cariMagang);
+        } else {
+            System.out.println("\nTotal pendaftar magang di perusahaan " + cariMagang + ": " + total);
+        }
+    }
+
     // 4. Hitung Status Magang
     static void hitungStatus() {
         if (count == 0) {
@@ -158,4 +191,35 @@ public class CM2Magang10_Array2D {
         System.out.println("Ditolak  : " + ditolak);
         System.out.println("Total Pendaftar : " + count);
     }
+
+    // static void hitungTotalPerProdi() {
+    // String[] prodiList = new String[100];
+    // int[] totalProdi = new int[100];
+    // int jumlahProdi = 0;
+
+    // for (int i = 0; i < count; i++) {
+    // String prodi = data[i][2];
+    // boolean ditemukan = false;
+
+    // for (int j = 0; j < jumlahProdi; j++) {
+    // if (prodiList[j].equalsIgnoreCase(prodi)) {
+    // totalProdi[j]++;
+    // ditemukan = true;
+    // break;
+    // }
+    // }
+
+    // if (!ditemukan) {
+    // prodiList[jumlahProdi] = prodi;
+    // totalProdi[jumlahProdi] = 1;
+    // jumlahProdi++;
+    // }
+    // }
+
+    // System.out.println("\n=== Total Pendaftar per Program Studi ===");
+    // for (int i = 0; i < jumlahProdi; i++) {
+    // System.out.println(prodiList[i] + " : " + totalProdi[i]);
+    // }
+    // }
+
 }
